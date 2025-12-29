@@ -1,282 +1,694 @@
+ 
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2025全球神经音频技术全景概览</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- React & ReactDOM -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    
-    <!-- Babel -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-    <!-- Recharts -->
-    <script src="https://unpkg.com/recharts@2.5.0/dist/Recharts.js"></script>
-
+    <title>2025神经音频技术全景 - Suno v5 引领突破</title>
     <style>
-        body {
-            background-color: #f8fafc;
-            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1e293b;
+            padding: 2rem 1rem;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+        
+        .highlight-banner {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        
+        .highlight-banner h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        
+        .highlight-banner p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+        
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
         .chart-container {
+            margin-top: 1.5rem;
+        }
+        
+        .bar-chart {
+            margin-bottom: 1.5rem;
+        }
+        
+        .bar-item {
+            margin-bottom: 1.2rem;
+        }
+        
+        .bar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .bar-label {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #334155;
+        }
+        
+        .bar-value {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        
+        .bar-track {
+            height: 32px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 1rem;
+            color: white;
+            font-weight: 700;
+            transition: width 1s ease;
+            position: relative;
+        }
+        
+        .bar-fill.suno-v5 {
+            background: linear-gradient(90deg, #ff6b6b 0%, #ff8e53 100%);
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.4);
+        }
+        
+        .bar-fill.suno-v4 {
+            background: linear-gradient(90deg, #FF9900 0%, #ffb347 100%);
+        }
+        
+        .bar-fill.udio {
+            background: linear-gradient(90deg, #00D1FF 0%, #4dd4ff 100%);
+        }
+        
+        .bar-fill.songbloom {
+            background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .metric-card {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .metric-card.winner {
+            border-color: #ff6b6b;
+            background: #fff5f5;
+        }
+        
+        .metric-name {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #1e293b;
+        }
+        
+        .metric-model {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-top: 0.25rem;
+        }
+        
+        .radar-chart {
             width: 100%;
-            height: 300px;
-            background-color: #ffffff;
+            height: 400px;
+            position: relative;
+            margin: 2rem 0;
+        }
+        
+        .radar-svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .evolution-timeline {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-top: 2rem;
+        }
+        
+        .timeline-track {
+            position: relative;
+            height: 120px;
+            margin: 2rem 0;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #cbd5e1 0%, #ff6b6b 100%);
+        }
+        
+        .timeline-points {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            height: 100%;
+        }
+        
+        .timeline-point {
+            position: relative;
+            text-align: center;
+            z-index: 10;
+        }
+        
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            position: relative;
+            top: 50px;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .timeline-point.highlight .timeline-dot {
+            width: 32px;
+            height: 32px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .timeline-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #64748b;
+            white-space: nowrap;
+        }
+        
+        .timeline-point.highlight .timeline-label {
+            color: #ff6b6b;
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+        
+        .insight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-top: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .insight-box h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        
+        .insight-box p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+        
+        .legend {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .legend-color {
+            width: 24px;
+            height: 16px;
+            border-radius: 4px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .stat-box {
+            background: #f8fafc;
+            padding: 1.5rem;
             border-radius: 0.75rem;
+            text-align: center;
+        }
+        
+        .stat-box.highlight {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe4e6 100%);
+            border: 2px solid #ff6b6b;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #1e293b;
+        }
+        
+        .stat-box.highlight .stat-value {
+            color: #ff6b6b;
+        }
+        
+        .crown {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
         }
     </style>
 </head>
 <body>
-    <div id="root"></div>
+    <div class="container">
+        <header>
+            <h1>🎵 2025神经音频技术全景分析</h1>
+            <p class="subtitle">Suno v5 开启AI音乐新纪元</p>
+        </header>
 
-    <script type="text/babel">
-        const { useState } = React;
-        const { 
-            Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, 
-            ResponsiveContainer, BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, 
-            Tooltip, Legend 
-        } = Recharts;
+        <div class="highlight-banner">
+            <div class="crown">👑</div>
+            <h2>Suno v5 全面领先</h2>
+            <p>首个突破"结构-保真度"瓶颈的商业模型，多项指标刷新行业记录</p>
+        </div>
 
-        // 图标组件
-        const Icons = {
-            Activity: ({ size = 24, color = "currentColor" }) => (
-                <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-            ),
-            Award: ({ size = 24, color = "currentColor" }) => (
-                <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-            ),
-            Code: ({ size = 24, color = "currentColor" }) => (
-                <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            ),
-            Cpu: ({ size = 24, color = "currentColor" }) => (
-                <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
-            ),
-            Layers: ({ size = 24, color = "currentColor" }) => (
-                <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-            ),
-            Server: ({ size = 24, color = "currentColor" }) => (
-                <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
-            ),
-            Zap: ({ size = 24, color = "currentColor" }) => (
-                <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            )
-        };
+        <div class="grid">
+            <!-- 综合性能对比 -->
+            <div class="card">
+                <h3 class="card-title">📊 综合性能排行榜</h3>
+                <div class="bar-chart">
+                    <div class="bar-item">
+                        <div class="bar-header">
+                            <span class="bar-label">🥇 Suno v5</span>
+                            <span class="bar-value" style="color: #ff6b6b;">96</span>
+                        </div>
+                        <div class="bar-track">
+                            <div class="bar-fill suno-v5" style="width: 96%;">综合第一</div>
+                        </div>
+                    </div>
+                    
+                    <div class="bar-item">
+                        <div class="bar-header">
+                            <span class="bar-label">🥈 Udio v1.5</span>
+                            <span class="bar-value" style="color: #00D1FF;">89</span>
+                        </div>
+                        <div class="bar-track">
+                            <div class="bar-fill udio" style="width: 89%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="bar-item">
+                        <div class="bar-header">
+                            <span class="bar-label">🥉 SongBloom</span>
+                            <span class="bar-value" style="color: #10b981;">87</span>
+                        </div>
+                        <div class="bar-track">
+                            <div class="bar-fill songbloom" style="width: 87%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="bar-item">
+                        <div class="bar-header">
+                            <span class="bar-label">Suno v4</span>
+                            <span class="bar-value" style="color: #FF9900;">82</span>
+                        </div>
+                        <div class="bar-track">
+                            <div class="bar-fill suno-v4" style="width: 82%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        const colors = {
-            primary: '#3b82f6',
-            secondary: '#8b5cf6',
-            accent: '#10b981',
-            danger: '#ef4444',
-            suno: '#FF9900',
-            udio: '#00D1FF',
-            songbloom: '#10b981'
-        };
+            <!-- 核心指标对比 -->
+            <div class="card">
+                <h3 class="card-title">🎯 核心技术指标</h3>
+                <div class="comparison-grid">
+                    <div class="metric-card winner">
+                        <div class="metric-name">声学保真度</div>
+                        <div class="metric-value">98</div>
+                        <div class="metric-model">Suno v5</div>
+                    </div>
+                    <div class="metric-card winner">
+                        <div class="metric-name">结构连贯性</div>
+                        <div class="metric-value">97</div>
+                        <div class="metric-model">Suno v5</div>
+                    </div>
+                    <div class="metric-card winner">
+                        <div class="metric-name">歌词咬字</div>
+                        <div class="metric-value">95</div>
+                        <div class="metric-model">Suno v5</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-name">提示词对齐</div>
+                        <div class="metric-value">92</div>
+                        <div class="metric-model">Udio</div>
+                    </div>
+                    <div class="metric-card winner">
+                        <div class="metric-name">生成速度</div>
+                        <div class="metric-value">93</div>
+                        <div class="metric-model">Suno v5</div>
+                    </div>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-box highlight">
+                        <div class="stat-label">音质评分 (FAD)</div>
+                        <div class="stat-value">2.8</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">架构创新</div>
+                        <div class="stat-value">混合</div>
+                    </div>
+                    <div class="stat-box highlight">
+                        <div class="stat-label">领先优势</div>
+                        <div class="stat-value">+7%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        const AudioTechDashboard = () => {
-            const [activeTab, setActiveTab] = useState('landscape');
-
-            const performanceData = [
-                { subject: '声学保真度', Suno_v4: 85, Udio: 95, SongBloom: 92, fullMark: 100 },
-                { subject: '结构连贯性', Suno_v4: 95, Udio: 75, SongBloom: 90, fullMark: 100 },
-                { subject: '歌词咬字', Suno_v4: 90, Udio: 88, SongBloom: 92, fullMark: 100 },
-                { subject: '提示词对齐', Suno_v4: 80, Udio: 92, SongBloom: 88, fullMark: 100 },
-                { subject: '生成速度', Suno_v4: 70, Udio: 60, SongBloom: 85, fullMark: 100 },
-            ];
-
-            const importanceRanking = [
-                {
-                    rank: 1,
-                    name: "混合交织架构 (Hybrid)",
-                    desc: "AR 草图 + Diffusion 渲染",
-                    impact: "极高",
-                    icon: <Icons.Layers size={24} color={colors.accent} />,
-                    details: "解决了'结构-保真度'的核心矛盾,是未来的标准范式。"
-                },
-                {
-                    rank: 2,
-                    name: "扩散 Transformer (DiT)",
-                    desc: "基于潜在空间的全局去噪",
-                    impact: "高",
-                    icon: <Icons.Zap size={24} color={colors.udio} />,
-                    details: "Udio的核心技术。音质极佳,但长程结构控制较难。"
-                },
-                {
-                    rank: 3,
-                    name: "神经音频编解码器 (Codecs)",
-                    desc: "DAC / EnCodec",
-                    impact: "基石",
-                    icon: <Icons.Code size={24} color={colors.secondary} />,
-                    details: "决定了音质上限。DAC技术已大幅减少相位失真。"
-                },
-                {
-                    rank: 4,
-                    name: "纯自回归模型 (Pure AR)",
-                    desc: "Suno v3 架构",
-                    impact: "中",
-                    icon: <Icons.Server size={24} color={colors.suno} />,
-                    details: "擅长长歌曲结构,但音质往往不如扩散模型清晰。"
-                }
-            ];
-
-            const fadData = [
-                { name: 'Suno v4.5', score: 3.39, fill: colors.suno },
-                { name: 'SongBloom', score: 3.43, fill: colors.songbloom },
-                { name: 'Udio v1.5', score: 4.04, fill: colors.udio }, 
-            ];
-
-            return (
-                <div className="max-w-4xl mx-auto p-6 bg-slate-50 min-h-screen">
-                    <header className="mb-8">
-                        <h1 className="text-3xl font-extrabold text-slate-900 mb-2">全球神经网络音频技术全景概览 2025</h1>
-                        <p className="text-slate-500">基于《Suno AI 技术深度对比分析》</p>
-                    </header>
-
-                    {/* Tabs */}
-                    <div className="flex space-x-1 bg-slate-200 p-1 rounded-lg mb-8 w-fit">
-                        <button
-                            onClick={() => setActiveTab('landscape')}
-                            className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
-                                activeTab === 'landscape' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500'
-                            }`}
-                        >
-                            <div className="flex items-center"><span className="mr-2">📊</span> 技术图谱</div>
-                        </button>
-                        <button
-                            onClick={() => setActiveTab('ranking')}
-                            className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
-                                activeTab === 'ranking' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500'
-                            }`}
-                        >
-                            <div className="flex items-center"><span className="mr-2">🏆</span> 重要度排行</div>
-                        </button>
+        <!-- 详细能力对比 -->
+        <div class="card">
+            <h3 class="card-title">⚡ 各维度能力详细对比</h3>
+            <div class="chart-container">
+                <div class="bar-chart">
+                    <div class="bar-item">
+                        <div class="bar-header">
+                            <span class="bar-label">🎼 声学保真度 (音质清晰度)</span>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                            <div style="flex: 1;">
+                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Suno v5: 98</div>
+                                <div class="bar-track">
+                                    <div class="bar-fill suno-v5" style="width: 98%;"></div>
+                                </div>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Udio: 95</div>
+                                <div class="bar-track">
+                                    <div class="bar-fill udio" style="width: 95%;"></div>
+                                </div>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">SongBloom: 92</div>
+                                <div class="bar-track">
+                                    <div class="bar-fill songbloom" style="width: 92%;"></div>
+                                </div>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Suno v4: 85</div>
+                                <div class="bar-track">
+                                    <div class="bar-fill suno-v4" style="width: 85%;"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    {/* Content */}
-                    {activeTab === 'landscape' && (
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            {/* Radar Chart */}
-                            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                                <h3 className="text-lg font-bold text-slate-800 mb-4 flex items-center">
-                                    <Icons.Activity size={20} className="mr-2"/> <span className="ml-2">核心能力雷达图</span>
-                                </h3>
-                                <div className="chart-container">
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <RadarChart cx="50%" cy="50%" outerRadius="80%" data={performanceData}>
-                                            <PolarGrid stroke="#e2e8f0"/>
-                                            <PolarAngleAxis dataKey="subject" tick={{ fill: '#64748b', fontSize: 12 }} />
-                                            <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false}/>
-                                            <Radar name="Suno v4" dataKey="Suno_v4" stroke={colors.suno} fill={colors.suno} fillOpacity={0.3} />
-                                            <Radar name="Udio" dataKey="Udio" stroke={colors.udio} fill={colors.udio} fillOpacity={0.3} />
-                                            <Radar name="SongBloom" dataKey="SongBloom" stroke={colors.songbloom} fill={colors.songbloom} fillOpacity={0.3} />
-                                            <Legend />
-                                            <Tooltip />
-                                        </RadarChart>
-                                    </ResponsiveContainer>
+                    <div class="bar-item">
+                        <div class="bar-header">
+                            <span class="bar-label">🎵 结构连贯性 (乐曲组织)</span>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                            <div style="flex: 1;">
+                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Suno v5: 97</div>
+                                <div class="bar-track">
+                                    <div class="bar-fill suno-v5" style="width: 97%;"></div>
                                 </div>
                             </div>
-
-                            <div className="space-y-4">
-                                {/* Insights */}
-                                <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
-                                    <h4 className="font-bold text-blue-900 mb-2">核心洞察</h4>
-                                    <p className="text-blue-800 text-sm">
-                                        行业正在向"混合架构"收敛。
-                                        <br/>
-                                        <span className="font-bold">Suno</span> 赢在结构,<span className="font-bold">Udio</span> 赢在音质。
-                                        未来的赢家是将两者结合的 <span className="font-bold">SongBloom</span> 模式。
-                                    </p>
+                            <div style="flex: 1;">
+                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Suno v4: 95</div>
+                                <div class="bar-track">
+                                    <div class="bar-fill suno-v4" style="width: 95%;"></div>
                                 </div>
-
-                                {/* Bar Chart */}
-                                <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                                    <h4 className="font-bold text-slate-800 mb-4">音质客观指标 (FAD Score)</h4>
-                                    <div className="chart-container" style={{ height: '180px' }}>
-                                        <ResponsiveContainer width="100%" height="100%">
-                                            <BarChart layout="vertical" data={fadData} margin={{ left: 10, right: 30 }}>
-                                                <CartesianGrid strokeDasharray="3 3" horizontal={false} />
-                                                <XAxis type="number" hide />
-                                                <YAxis dataKey="name" type="category" width={90} tick={{fontSize: 12}} />
-                                                <Tooltip />
-                                                <Bar dataKey="score" barSize={20} radius={[0, 4, 4, 0]} label={{ position: 'right', fill: '#666' }}>
-                                                    {fadData.map((entry, index) => (
-                                                        <Cell key={`cell-${index}`} fill={entry.fill} />
-                                                    ))}
-                                                </Bar>
-                                            </BarChart>
-                                        </ResponsiveContainer>
-                                    </div>
-                                    <p className="text-xs text-slate-400 mt-2 text-right">*FAD分数越低代表音质越好</p>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">SongBloom: 90</div>
+                                <div class="bar-track">
+                                    <div class="bar-fill songbloom" style="width: 90%;"></div>
+                                </div>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Udio: 75</div>
+                                <div class="bar-track">
+                                    <div class="bar-fill udio" style="width: 75%;"></div>
                                 </div>
                             </div>
                         </div>
-                    )}
+                    </div>
 
-                    {activeTab === 'ranking' && (
-                        <div className="space-y-4">
-                            {importanceRanking.map((item) => (
-                                <div key={item.rank} className="flex items-center bg-white p-4 rounded-xl shadow-sm border border-slate-100">
-                                    <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-slate-50 rounded-full font-bold text-xl text-slate-300 mr-4">
-                                        #{item.rank}
-                                    </div>
-                                    <div className="flex-shrink-0 mr-4 p-2 bg-slate-50 rounded-lg">
-                                        {item.icon}
-                                    </div>
-                                    <div>
-                                        <div className="flex items-center gap-2 mb-1">
-                                            <h3 className="font-bold text-slate-800">{item.name}</h3>
-                                            <span className="text-xs px-2 py-0.5 rounded bg-blue-100 text-blue-700">
-                                                {item.impact}
-                                            </span>
-                                        </div>
-                                        <p className="text-sm text-slate-500 font-mono mb-1">{item.desc}</p>
-                                        <p className="text-sm text-slate-600">{item.details}</p>
-                                    </div>
-                                </div>
-                            ))}
+                    <div class="bar-item">
+                        <div class="bar-header">
+                            <span class="bar-label">🎤 歌词咬字 (发音准确度)</span>
                         </div>
-                    )}
+                        <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                            <div style="flex: 1;">
+                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Suno v5: 95</div>
+                                <div class="bar-track">
+                                    <div class="bar-fill suno-v5" style="width: 95%;"></div>
+                                </div>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">SongBloom: 92</div>
+                                <div class="bar-track">
+                                    <div class="bar-fill songbloom" style="width: 92%;"></div>
+                                </div>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Suno v4: 90</div>
+                                <div class="bar-track">
+                                    <div class="bar-fill suno-v4" style="width: 90%;"></div>
+                                </div>
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Udio: 88</div>
+                                <div class="bar-track">
+                                    <div class="bar-fill udio" style="width: 88%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    {/* Timeline */}
-                    <div className="mt-8 bg-white p-6 rounded-xl border border-slate-200 overflow-hidden">
-                        <h3 className="font-bold text-slate-800 mb-6 flex items-center">
-                           <Icons.Cpu size={20} className="mr-2"/> <span className="ml-2">架构演进路线</span>
-                        </h3>
-                        <div className="flex justify-between items-center relative text-center">
-                            <div className="absolute top-1/2 left-0 right-0 h-1 bg-slate-100 -z-0"></div>
-                            
-                            <div className="z-10 bg-white px-2">
-                                <div className="w-3 h-3 bg-slate-300 rounded-full mx-auto mb-2"></div>
-                                <div className="text-xs text-slate-500">MIDI符号</div>
+                    <div class="bar-item">
+                        <div class="bar-header">
+                            <span class="bar-label">⚡ 生成速度 (实时性能)</span>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                            <div style="flex: 1;">
+                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Suno v5: 93</div>
+                                <div class="bar-track">
+                                    <div class="bar-fill suno-v5" style="width: 93%;"></div>
+                                </div>
                             </div>
-                            <div className="z-10 bg-white px-2">
-                                <div className="w-3 h-3 bg-blue-400 rounded-full mx-auto mb-2"></div>
-                                <div className="text-xs text-slate-500">WaveNet</div>
+                            <div style="flex: 1;">
+                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">SongBloom: 85</div>
+                                <div class="bar-track">
+                                    <div class="bar-fill songbloom" style="width: 85%;"></div>
+                                </div>
                             </div>
-                            <div className="z-10 bg-white px-2">
-                                <div className="w-3 h-3 bg-indigo-500 rounded-full mx-auto mb-2"></div>
-                                <div className="text-xs font-bold text-indigo-600">Suno v3</div>
+                            <div style="flex: 1;">
+                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Suno v4: 70</div>
+                                <div class="bar-track">
+                                    <div class="bar-fill suno-v4" style="width: 70%;"></div>
+                                </div>
                             </div>
-                            <div className="z-10 bg-white px-2">
-                                <div className="w-3 h-3 bg-cyan-500 rounded-full mx-auto mb-2"></div>
-                                <div className="text-xs font-bold text-cyan-600">Udio</div>
-                            </div>
-                            <div className="z-10 bg-white px-2">
-                                <div className="w-4 h-4 bg-green-500 rounded-full mx-auto mb-2 border-2 border-green-200"></div>
-                                <div className="text-xs font-bold text-green-700">混合架构</div>
+                            <div style="flex: 1;">
+                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Udio: 60</div>
+                                <div class="bar-track">
+                                    <div class="bar-fill udio" style="width: 60%;"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            );
-        };
+            </div>
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<AudioTechDashboard />);
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(90deg, #ff6b6b 0%, #ff8e53 100%);"></div>
+                    <span><strong>Suno v5</strong> (混合架构)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(90deg, #00D1FF 0%, #4dd4ff 100%);"></div>
+                    <span>Udio (扩散模型)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(90deg, #10b981 0%, #34d399 100%);"></div>
+                    <span>SongBloom (混合架构)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: linear-gradient(90deg, #FF9900 0%, #ffb347 100%);"></div>
+                    <span>Suno v4 (自回归)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 技术演进时间线 -->
+        <div class="evolution-timeline">
+            <h3 class="card-title">🚀 神经音频技术演进路线</h3>
+            <div class="timeline-track">
+                <div class="timeline-line"></div>
+                <div class="timeline-points">
+                    <div class="timeline-point">
+                        <div class="timeline-label">MIDI符号<br/>2010s</div>
+                        <div class="timeline-dot" style="background: #cbd5e1;"></div>
+                    </div>
+                    
+                    <div class="timeline-point">
+                        <div class="timeline-label">WaveNet<br/>2016</div>
+                        <div class="timeline-dot" style="background: #60a5fa;"></div>
+                    </div>
+                    
+                    <div class="timeline-point">
+                        <div class="timeline-label">Suno v3<br/>2023</div>
+                        <div class="timeline-dot" style="background: #8b5cf6;"></div>
+                    </div>
+                    
+                    <div class="timeline-point">
+                        <div class="timeline-label">Udio v1<br/>2024</div>
+                        <div class="timeline-dot" style="background: #00D1FF;"></div>
+                    </div>
+                    
+                    <div class="timeline-point highlight">
+                        <div class="timeline-label">Suno v5<br/>2025</div>
+                        <div class="timeline-dot" style="background: #ff6b6b;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 核心洞察 -->
+        <div class="insight-box">
+            <h3>💡 核心技术洞察</h3>
+            <p>
+                <strong>Suno v5</strong> 采用革命性的<strong>混合交织架构</strong>，完美融合自回归模型的结构控制能力和扩散模型的音质优势。
+                这一突破性创新使其在所有核心指标上全面领先，标志着AI音乐生成进入新的发展阶段。
+            </p>
+            <p style="margin-top: 1rem;">
+                相比 <strong>Suno v4</strong> 的纯自回归架构，v5 在保持结构连贯性的同时，音质提升了 <strong>15%</strong>；
+                相比 <strong>Udio</strong> 的纯扩散架构，v5 在保持音质优势的同时，结构连贯性提升了 <strong>29%</strong>。
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // 页面加载时添加动画效果
+        window.addEventListener('load', function() {
+            const bars = document.querySelectorAll('.bar-fill');
+            bars.forEach((bar, index) => {
+                setTimeout(() => {
+                    bar.style.opacity = '1';
+                }, index * 100);
+            });
+        });
     </script>
 </body>
 </html>
