@@ -1,3 +1,4 @@
+ 
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -5,10 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>2025神经音频技术全景 - Suno v5 引领突破（原生版）</title>
   <style>
-    :root{
-      --bg1:#667eea; --bg2:#764ba2;
-      --card:#ffffff; --text:#0f172a; --muted:#64748b; --border:#e2e8f0;
-      --suno:#ff9900; --suno5:#ff6b6b; --suno5b:#ff8e53; --udio:#00D1FF; --song:#10b981;
+    :root{$1--song:#10b981; --cn1:#94a3b8; --cn2:#64748b;
       --ok:#34d399; --bad:#f87171;
     }
     *{margin:0;padding:0;box-sizing:border-box}
@@ -55,6 +53,8 @@
     .fill-suno{background:linear-gradient(90deg,var(--suno) 0%, #ffb347 100%)}
     .fill-udio{background:linear-gradient(90deg,var(--udio) 0%, #4dd4ff 100%)}
     .fill-song{background:linear-gradient(90deg,var(--song) 0%, #34d399 100%)}
+    .fill-cn1{background:linear-gradient(90deg,var(--cn1) 0%, #cbd5e1 100%)}
+    .fill-cn2{background:linear-gradient(90deg,var(--cn2) 0%, #94a3b8 100%)}
 
     /* Metric cards */
     .comparison-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.8rem;margin-top:.7rem}
@@ -213,17 +213,24 @@
             <div class="bar-header"><span class="bar-label">🥈 Udio v1.5</span><span class="bar-value" style="color:var(--udio)">89</span></div>
             <div class="bar-track"><div class="bar-fill fill-udio"></div></div>
           </div>
-          <div class="bar-item" data-score="87" data-fill="fill-song">
-            <div class="bar-header"><span class="bar-label">🥉 SongBloom</span><span class="bar-value" style="color:var(--song)">87</span></div>
-            <div class="bar-track"><div class="bar-fill fill-song"></div></div>
+          <div class="bar-item" data-score="87" data-fill="fill-song">$1</div>
+          <div class="bar-item" data-score="72" data-fill="fill-cn1">
+            <div class="bar-header"><span class="bar-label">国内平台A（基线）</span><span class="bar-value" style="color:var(--cn1)">72</span></div>
+            <div class="bar-track"><div class="bar-fill fill-cn1"></div></div>
           </div>
-          <div class="bar-item" data-score="82" data-fill="fill-suno">
+          <div class="bar-item" data-score="68" data-fill="fill-cn2">
+            <div class="bar-header"><span class="bar-label">国内平台B（基线）</span><span class="bar-value" style="color:var(--cn2)">68</span></div>
+            <div class="bar-track"><div class="bar-fill fill-cn2"></div></div>
+          </div>
+        </div>
+        <div class="bar-item" data-score="82" data-fill="fill-suno">
             <div class="bar-header"><span class="bar-label">Suno v4</span><span class="bar-value" style="color:var(--suno)">82</span></div>
             <div class="bar-track"><div class="bar-fill fill-suno"></div></div>
           </div>
         </div>
         <div class="technical-note">
-          综合评估参考 <span class="term-highlight">MOS / CMOS</span>、<span class="term-highlight">FAD</span>、<span class="term-highlight">Audio-Text 相似度（CLAP-like）</span> 与结构一致性（long-range coherence）等指标加权。
+          综合评估参考 <span class="term-highlight">MOS / CMOS</span>、<span class="term-highlight">FAD</span>、<span class="term-highlight">Audio-Text 相似度（CLAP-like）</span> 与结构一致性（long-range coherence）等指标加权。<br>
+          <span class="term-highlight">国内同行（基线）</span>一栏用于做“能力下界/工程基线”对照：常见短板集中在 <span class="mono">long-context structure</span>、<span class="mono">prosody alignment</span> 与高频伪影控制（codec artifacts）。
         </div>
       </div>
 
@@ -249,6 +256,13 @@
           <span class="term-highlight">相位连贯性</span>：长程时域一致性（phase coherence & transient stability） ｜
           <span class="term-highlight">音素对齐度</span>：声学-语言学时序同步（phoneme alignment error）。
         </div>
+
+        <div class="technical-note" style="border-left-color:#94a3b8;">
+          <b>国内同行（基线）示例对照</b>：用于强调差距（并非对任何特定厂商的结论）。<br>
+          • FAD：平台A≈5.6；平台B≈6.2（越低越好）<br>
+          • 长程结构一致性：平台A≈70；平台B≈68（0–100）<br>
+          • 音素对齐：平台A≈76；平台B≈72（0–100）
+        </div>
       </div>
     </div>
 
@@ -266,14 +280,16 @@
             <th>Suno v5</th>
             <th>Udio</th>
             <th>SongBloom</th>
+            <th>国内平台A（基线）</th>
+            <th>国内平台B（基线）</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td><b>声学保真度</b> (Timbre / Artifacts)</td><td>85</td><td><b>90</b></td><td>95</td><td>92</td></tr>
-          <tr><td><b>结构连贯性</b> (Long-range Structure)</td><td>95</td><td><b>96</b></td><td>75</td><td>90</td></tr>
-          <tr><td><b>歌词咬字</b> (Phoneme Clarity)</td><td>90</td><td><b>92</b></td><td>88</td><td>92</td></tr>
-          <tr><td><b>提示词对齐</b> (Conditioning Fidelity)</td><td>80</td><td>85</td><td><b>92</b></td><td>88</td></tr>
-          <tr><td><b>生成速度</b> (Latency)</td><td>70</td><td>75</td><td>60</td><td><b>85</b></td></tr>
+          <tr><td><b>声学保真度</b> (Timbre / Artifacts)</td><td>85</td><td><b>90</b></td><td>95</td><td>92</td><td>78</td><td>74</td></tr>
+          <tr><td><b>结构连贯性</b> (Long-range Structure)</td><td>95</td><td><b>96</b></td><td>75</td><td>90</td><td>70</td><td>68</td></tr>
+          <tr><td><b>歌词咬字</b> (Phoneme Clarity)</td><td>90</td><td><b>92</b></td><td>88</td><td>92</td><td>76</td><td>72</td></tr>
+          <tr><td><b>提示词对齐</b> (Conditioning Fidelity)</td><td>80</td><td>85</td><td><b>92</b></td><td>88</td><td>75</td><td>70</td></tr>
+          <tr><td><b>生成速度</b> (Latency)</td><td>70</td><td>75</td><td>60</td><td><b>85</b></td><td>80</td><td>78</td></tr>
         </tbody>
       </table>
     </div>
@@ -308,6 +324,8 @@
             <div class="legend-item"><span class="legend-color" style="background:linear-gradient(90deg,var(--suno),#ffb347);"></span> Suno v4</div>
             <div class="legend-item"><span class="legend-color" style="background:linear-gradient(90deg,var(--udio),#4dd4ff);"></span> Udio</div>
             <div class="legend-item"><span class="legend-color" style="background:linear-gradient(90deg,var(--song),#34d399);"></span> SongBloom</div>
+            <div class="legend-item"><span class="legend-color" style="background:linear-gradient(90deg,var(--cn1),#cbd5e1);"></span> 国内平台A（基线）</div>
+            <div class="legend-item"><span class="legend-color" style="background:linear-gradient(90deg,var(--cn2),#94a3b8);"></span> 国内平台B（基线）</div>
           </div>
         </div>
       </div>
@@ -422,6 +440,8 @@
           suno5:  { name:'Suno v5',   color1:getComputedStyle(document.documentElement).getPropertyValue('--suno5').trim() || '#ff6b6b', color2:getComputedStyle(document.documentElement).getPropertyValue('--suno5b').trim() || '#ff8e53', values:[90,96,92,85,75] },
           udio:   { name:'Udio',      color1:getComputedStyle(document.documentElement).getPropertyValue('--udio').trim() || '#00D1FF',  color2:'#4dd4ff', values:[95,75,88,92,60] },
           song:   { name:'SongBloom', color1:getComputedStyle(document.documentElement).getPropertyValue('--song').trim() || '#10b981',  color2:'#34d399', values:[92,90,92,88,85] },
+          cn1:    { name:'国内平台A（基线）', color1:getComputedStyle(document.documentElement).getPropertyValue('--cn1').trim() || '#94a3b8', color2:'#cbd5e1', values:[78,70,76,75,80] },
+          cn2:    { name:'国内平台B（基线）', color1:getComputedStyle(document.documentElement).getPropertyValue('--cn2').trim() || '#64748b', color2:'#94a3b8', values:[74,68,72,70,78] },
         };
 
         const svg = document.getElementById('radar');
@@ -484,7 +504,7 @@
           }
 
           // Draw each model polygon
-          const drawOrder = ['song','udio','suno4','suno5'];
+          const drawOrder = ['cn2','cn1','song','udio','suno4','suno5'];
           drawOrder.forEach(key => {
             const m = data[key];
             const pts = polygon(m.values);
@@ -525,7 +545,7 @@
         // 4) Tests (keep + add)
         const tests = [];
         tests.push({name:'root exists', pass: !!document.getElementById('root')});
-        tests.push({name:'overall bars exist', pass: document.querySelectorAll('#overallBars .bar-item').length >= 4});
+        tests.push({name:'overall bars exist', pass: document.querySelectorAll('#overallBars .bar-item').length >= 6});
         tests.push({name:'accordion exists', pass: !!document.getElementById('acc')});
         tests.push({name:'accordion items >= 4', pass: document.querySelectorAll('#acc .accbtn').length >= 4});
         tests.push({name:'radar svg exists', pass: !!document.getElementById('radar')});
