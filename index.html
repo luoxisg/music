@@ -1,694 +1,546 @@
- 
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2025神经音频技术全景 - Suno v5 引领突破</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            line-height: 1.6;
-            color: #1e293b;
-            padding: 2rem 1rem;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 3rem;
-            color: white;
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
-        
-        .subtitle {
-            font-size: 1.1rem;
-            opacity: 0.95;
-        }
-        
-        .highlight-banner {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
-            color: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            text-align: center;
-        }
-        
-        .highlight-banner h2 {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-        
-        .highlight-banner p {
-            font-size: 1.1rem;
-            opacity: 0.95;
-        }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-            h1 {
-                font-size: 1.8rem;
-            }
-        }
-        
-        .card {
-            background: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        
-        .card-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .chart-container {
-            margin-top: 1.5rem;
-        }
-        
-        .bar-chart {
-            margin-bottom: 1.5rem;
-        }
-        
-        .bar-item {
-            margin-bottom: 1.2rem;
-        }
-        
-        .bar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-        
-        .bar-label {
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: #334155;
-        }
-        
-        .bar-value {
-            font-weight: 700;
-            font-size: 1rem;
-        }
-        
-        .bar-track {
-            height: 32px;
-            background: #f1f5f9;
-            border-radius: 8px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .bar-fill {
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding-right: 1rem;
-            color: white;
-            font-weight: 700;
-            transition: width 1s ease;
-            position: relative;
-        }
-        
-        .bar-fill.suno-v5 {
-            background: linear-gradient(90deg, #ff6b6b 0%, #ff8e53 100%);
-            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.4);
-        }
-        
-        .bar-fill.suno-v4 {
-            background: linear-gradient(90deg, #FF9900 0%, #ffb347 100%);
-        }
-        
-        .bar-fill.udio {
-            background: linear-gradient(90deg, #00D1FF 0%, #4dd4ff 100%);
-        }
-        
-        .bar-fill.songbloom {
-            background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
-        }
-        
-        .comparison-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .metric-card {
-            background: #f8fafc;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            text-align: center;
-            border: 2px solid transparent;
-            transition: all 0.3s;
-        }
-        
-        .metric-card.winner {
-            border-color: #ff6b6b;
-            background: #fff5f5;
-        }
-        
-        .metric-name {
-            font-size: 0.8rem;
-            color: #64748b;
-            margin-bottom: 0.5rem;
-        }
-        
-        .metric-value {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: #1e293b;
-        }
-        
-        .metric-model {
-            font-size: 0.75rem;
-            color: #94a3b8;
-            margin-top: 0.25rem;
-        }
-        
-        .radar-chart {
-            width: 100%;
-            height: 400px;
-            position: relative;
-            margin: 2rem 0;
-        }
-        
-        .radar-svg {
-            width: 100%;
-            height: 100%;
-        }
-        
-        .evolution-timeline {
-            background: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            margin-top: 2rem;
-        }
-        
-        .timeline-track {
-            position: relative;
-            height: 120px;
-            margin: 2rem 0;
-        }
-        
-        .timeline-line {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #cbd5e1 0%, #ff6b6b 100%);
-        }
-        
-        .timeline-points {
-            display: flex;
-            justify-content: space-between;
-            position: relative;
-            height: 100%;
-        }
-        
-        .timeline-point {
-            position: relative;
-            text-align: center;
-            z-index: 10;
-        }
-        
-        .timeline-dot {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            margin: 0 auto 1rem;
-            position: relative;
-            top: 50px;
-            border: 3px solid white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-        
-        .timeline-point.highlight .timeline-dot {
-            width: 32px;
-            height: 32px;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        
-        .timeline-label {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #64748b;
-            white-space: nowrap;
-        }
-        
-        .timeline-point.highlight .timeline-label {
-            color: #ff6b6b;
-            font-weight: 800;
-            font-size: 1.1rem;
-        }
-        
-        .insight-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            margin-top: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        
-        .insight-box h3 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-        
-        .insight-box p {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            opacity: 0.95;
-        }
-        
-        .legend {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .legend-color {
-            width: 24px;
-            height: 16px;
-            border-radius: 4px;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        
-        .stat-box {
-            background: #f8fafc;
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-            text-align: center;
-        }
-        
-        .stat-box.highlight {
-            background: linear-gradient(135deg, #fff5f5 0%, #ffe4e6 100%);
-            border: 2px solid #ff6b6b;
-        }
-        
-        .stat-label {
-            font-size: 0.85rem;
-            color: #64748b;
-            margin-bottom: 0.5rem;
-        }
-        
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: #1e293b;
-        }
-        
-        .stat-box.highlight .stat-value {
-            color: #ff6b6b;
-        }
-        
-        .crown {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2025神经音频技术全景 - Suno v5 引领突破（原生版）</title>
+  <style>
+    :root{
+      --bg1:#667eea; --bg2:#764ba2;
+      --card:#ffffff; --text:#0f172a; --muted:#64748b; --border:#e2e8f0;
+      --suno:#ff9900; --suno5:#ff6b6b; --suno5b:#ff8e53; --udio:#00D1FF; --song:#10b981;
+      --ok:#34d399; --bad:#f87171;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 100%);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+      line-height:1.6;
+      color:var(--text);
+      padding:2rem 1rem;
+    }
+    .container{max-width:1400px;margin:0 auto;}
+    header{text-align:center;margin-bottom:1.6rem;color:#fff;}
+    h1{font-size:2.2rem;font-weight:900;margin-bottom:.4rem;text-shadow:2px 2px 4px rgba(0,0,0,.2)}
+    .subtitle{font-size:1.05rem;opacity:.95}
+
+    .highlight-banner{
+      background: linear-gradient(135deg, var(--suno5) 0%, var(--suno5b) 100%);
+      color:#fff;
+      padding:1.6rem;
+      border-radius:1rem;
+      margin: 0 auto 1.4rem;
+      box-shadow:0 10px 30px rgba(0,0,0,.3);
+      text-align:center;
+    }
+    .highlight-banner .crown{font-size:2rem;margin-bottom:.4rem}
+    .highlight-banner h2{font-size:1.7rem;font-weight:900;margin-bottom:.5rem}
+    .highlight-banner p{font-size:1.05rem;opacity:.95}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(500px,1fr));gap:1.4rem;margin-bottom:1.4rem;}
+    @media (max-width: 900px){.grid{grid-template-columns:1fr;} h1{font-size:1.7rem}}
+
+    .card{background:var(--card);padding:1.6rem;border-radius:1rem;box-shadow:0 10px 30px rgba(0,0,0,.2);}
+    .card-title{font-size:1.25rem;font-weight:800;color:#1e293b;margin-bottom:1rem;display:flex;align-items:center;gap:.55rem}
+
+    /* Bar chart */
+    .bar-chart{display:grid;gap:1rem}
+    .bar-item{display:grid;gap:.5rem}
+    .bar-header{display:flex;justify-content:space-between;align-items:center}
+    .bar-label{font-weight:700;color:#334155}
+    .bar-value{font-weight:900}
+    .bar-track{height:30px;background:#f1f5f9;border-radius:10px;overflow:hidden;position:relative}
+    .bar-fill{height:100%;display:flex;align-items:center;justify-content:flex-end;padding-right:1rem;color:#fff;font-weight:900;width:0;transition:width 900ms ease;}
+    .fill-suno5{background:linear-gradient(90deg,var(--suno5) 0%, var(--suno5b) 100%);box-shadow:0 2px 10px rgba(255,107,107,.35)}
+    .fill-suno{background:linear-gradient(90deg,var(--suno) 0%, #ffb347 100%)}
+    .fill-udio{background:linear-gradient(90deg,var(--udio) 0%, #4dd4ff 100%)}
+    .fill-song{background:linear-gradient(90deg,var(--song) 0%, #34d399 100%)}
+
+    /* Metric cards */
+    .comparison-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.8rem;margin-top:.7rem}
+    @media (max-width: 900px){.comparison-grid{grid-template-columns:repeat(2,1fr)}}
+    .metric-card{background:#f8fafc;padding:1rem;border-radius:.75rem;text-align:center;border:2px solid transparent;transition:transform .2s, box-shadow .2s}
+    .metric-card:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.08)}
+    .metric-card.winner{border-color:var(--suno5);background:#fff5f5}
+    .metric-name{font-size:.75rem;color:#64748b;margin-bottom:.4rem}
+    .metric-value{font-size:1.7rem;font-weight:900;color:#0f172a;line-height:1}
+    .metric-model{font-size:.72rem;color:#94a3b8;margin-top:.25rem}
+
+    /* Stats */
+    .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-top:1rem}
+    @media (max-width: 900px){.stats-grid{grid-template-columns:1fr}}
+    .stat-box{background:#f8fafc;padding:1.1rem;border-radius:.85rem;text-align:center}
+    .stat-box.highlight{background:linear-gradient(135deg,#fff5f5 0%, #ffe4e6 100%);border:2px solid var(--suno5)}
+    .stat-label{font-size:.85rem;color:#64748b;margin-bottom:.35rem}
+    .stat-value{font-size:2.1rem;font-weight:950;color:#0f172a}
+    .stat-box.highlight .stat-value{color:var(--suno5)}
+
+    /* Technical note */
+    .technical-note{font-size:.88rem;color:#64748b;font-style:italic;margin-top:.7rem;padding:.9rem;background:#f8fafc;border-left:4px solid #e2e8f0;border-radius:.35rem;}
+    .term-highlight{color:#6366f1;font-weight:700}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;background:#f1f5f9;padding:.1rem .35rem;border-radius:.25rem}
+
+    /* Glossary accordion */
+    .acc{display:grid;gap:.75rem;margin-top:1rem}
+    .accbtn{width:100%;text-align:left;background:#f8fafc;border:1px solid #e2e8f0;border-radius:.85rem;padding:1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;transition:all .2s}
+    .accbtn:hover{background:#f1f5f9;border-color:#cbd5e1}
+    .accbtn-content{flex:1}
+    .accbtn .k{font-weight:900;font-size:.95rem;color:#1e293b}
+    .accbtn .m{font-size:.82rem;color:#64748b;margin-top:.25rem}
+    .chev{width:10px;height:10px;border-right:2px solid #64748b;border-bottom:2px solid #64748b;transform:rotate(45deg);transition:transform 200ms ease}
+    .accbtn[aria-expanded="true"] .chev{transform:rotate(-135deg)}
+    .accpanel{display:none;padding:1rem;background:#eff6ff;border:1px solid #bfdbfe;border-radius:.85rem;color:#1e3a8a;font-size:.92rem;line-height:1.75;margin-top:.2rem}
+    .accpanel.show{display:block}
+
+    /* Table */
+    table{width:100%;border-collapse:collapse;margin-top:1rem}
+    th,td{padding:.85rem;text-align:left;border-bottom:1px solid #e2e8f0}
+    th{background:#f8fafc;font-weight:900;color:#1e293b;font-size:.86rem}
+    td{font-size:.92rem;color:#475569}
+    tbody tr:hover{background:#f8fafc}
+
+    /* Radar */
+    .radar-wrap{display:grid;grid-template-columns:1fr;gap:1rem;align-items:start}
+    .radar-container{width:100%;max-width:720px;margin:0 auto}
+    .legend{display:flex;gap:1.2rem;margin-top:1rem;flex-wrap:wrap;justify-content:center}
+    .legend-item{display:flex;align-items:center;gap:.5rem;font-size:.9rem;color:#334155}
+    .legend-color{width:26px;height:16px;border-radius:6px}
+
+    /* Timeline */
+    .evolution{background:#fff;padding:1.6rem;border-radius:1rem;box-shadow:0 10px 30px rgba(0,0,0,.2);margin-top:1.4rem}
+    .timeline-track{position:relative;height:120px;margin:1.6rem 0}
+    .timeline-line{position:absolute;top:50%;left:0;right:0;height:4px;background:linear-gradient(90deg,#cbd5e1 0%, var(--suno5) 100%)}
+    .timeline-points{display:flex;justify-content:space-between;position:relative;height:100%}
+    .timeline-point{position:relative;text-align:center;z-index:10}
+    .timeline-dot{width:20px;height:20px;border-radius:50%;margin:0 auto 1rem;position:relative;top:50px;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.2);background:#cbd5e1}
+    .timeline-point.highlight .timeline-dot{width:32px;height:32px;animation:pulse 2s infinite;background:var(--suno5)}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+    .timeline-label{font-size:.9rem;font-weight:700;color:#64748b;white-space:nowrap}
+    .timeline-point.highlight .timeline-label{color:var(--suno5);font-weight:950;font-size:1.05rem}
+
+    /* Tests */
+    .tests{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:12px;background:#0b1020;color:#e5e7eb;border-radius:14px;padding:12px;line-height:1.5;overflow:auto;margin-top:1.2rem}
+    .ok{color:var(--ok)} .bad{color:var(--bad)}
+
+    footer{color:#e2e8f0;text-align:center;margin-top:1.5rem;font-size:.9rem;opacity:.95}
+
+    /* hidden root for compatibility */
+    #root{display:none}
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🎵 2025神经音频技术全景分析</h1>
-            <p class="subtitle">Suno v5 开启AI音乐新纪元</p>
-        </header>
+  <div id="root" aria-hidden="true"></div>
 
-        <div class="highlight-banner">
-            <div class="crown">👑</div>
-            <h2>Suno v5 全面领先</h2>
-            <p>首个突破"结构-保真度"瓶颈的商业模型，多项指标刷新行业记录</p>
-        </div>
+  <div class="container">
+    <header>
+      <h1>🎵 2025 神经音频技术全景分析</h1>
+      <p class="subtitle">Suno v5 开启 AI 音乐合成新纪元（原生 JS/CSS，无外部依赖）</p>
+    </header>
 
-        <div class="grid">
-            <!-- 综合性能对比 -->
-            <div class="card">
-                <h3 class="card-title">📊 综合性能排行榜</h3>
-                <div class="bar-chart">
-                    <div class="bar-item">
-                        <div class="bar-header">
-                            <span class="bar-label">🥇 Suno v5</span>
-                            <span class="bar-value" style="color: #ff6b6b;">96</span>
-                        </div>
-                        <div class="bar-track">
-                            <div class="bar-fill suno-v5" style="width: 96%;">综合第一</div>
-                        </div>
-                    </div>
-                    
-                    <div class="bar-item">
-                        <div class="bar-header">
-                            <span class="bar-label">🥈 Udio v1.5</span>
-                            <span class="bar-value" style="color: #00D1FF;">89</span>
-                        </div>
-                        <div class="bar-track">
-                            <div class="bar-fill udio" style="width: 89%;"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="bar-item">
-                        <div class="bar-header">
-                            <span class="bar-label">🥉 SongBloom</span>
-                            <span class="bar-value" style="color: #10b981;">87</span>
-                        </div>
-                        <div class="bar-track">
-                            <div class="bar-fill songbloom" style="width: 87%;"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="bar-item">
-                        <div class="bar-header">
-                            <span class="bar-label">Suno v4</span>
-                            <span class="bar-value" style="color: #FF9900;">82</span>
-                        </div>
-                        <div class="bar-track">
-                            <div class="bar-fill suno-v4" style="width: 82%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 核心指标对比 -->
-            <div class="card">
-                <h3 class="card-title">🎯 核心技术指标</h3>
-                <div class="comparison-grid">
-                    <div class="metric-card winner">
-                        <div class="metric-name">声学保真度</div>
-                        <div class="metric-value">98</div>
-                        <div class="metric-model">Suno v5</div>
-                    </div>
-                    <div class="metric-card winner">
-                        <div class="metric-name">结构连贯性</div>
-                        <div class="metric-value">97</div>
-                        <div class="metric-model">Suno v5</div>
-                    </div>
-                    <div class="metric-card winner">
-                        <div class="metric-name">歌词咬字</div>
-                        <div class="metric-value">95</div>
-                        <div class="metric-model">Suno v5</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-name">提示词对齐</div>
-                        <div class="metric-value">92</div>
-                        <div class="metric-model">Udio</div>
-                    </div>
-                    <div class="metric-card winner">
-                        <div class="metric-name">生成速度</div>
-                        <div class="metric-value">93</div>
-                        <div class="metric-model">Suno v5</div>
-                    </div>
-                </div>
-                
-                <div class="stats-grid">
-                    <div class="stat-box highlight">
-                        <div class="stat-label">音质评分 (FAD)</div>
-                        <div class="stat-value">2.8</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-label">架构创新</div>
-                        <div class="stat-value">混合</div>
-                    </div>
-                    <div class="stat-box highlight">
-                        <div class="stat-label">领先优势</div>
-                        <div class="stat-value">+7%</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 详细能力对比 -->
-        <div class="card">
-            <h3 class="card-title">⚡ 各维度能力详细对比</h3>
-            <div class="chart-container">
-                <div class="bar-chart">
-                    <div class="bar-item">
-                        <div class="bar-header">
-                            <span class="bar-label">🎼 声学保真度 (音质清晰度)</span>
-                        </div>
-                        <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
-                            <div style="flex: 1;">
-                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Suno v5: 98</div>
-                                <div class="bar-track">
-                                    <div class="bar-fill suno-v5" style="width: 98%;"></div>
-                                </div>
-                            </div>
-                            <div style="flex: 1;">
-                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Udio: 95</div>
-                                <div class="bar-track">
-                                    <div class="bar-fill udio" style="width: 95%;"></div>
-                                </div>
-                            </div>
-                            <div style="flex: 1;">
-                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">SongBloom: 92</div>
-                                <div class="bar-track">
-                                    <div class="bar-fill songbloom" style="width: 92%;"></div>
-                                </div>
-                            </div>
-                            <div style="flex: 1;">
-                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Suno v4: 85</div>
-                                <div class="bar-track">
-                                    <div class="bar-fill suno-v4" style="width: 85%;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bar-item">
-                        <div class="bar-header">
-                            <span class="bar-label">🎵 结构连贯性 (乐曲组织)</span>
-                        </div>
-                        <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
-                            <div style="flex: 1;">
-                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Suno v5: 97</div>
-                                <div class="bar-track">
-                                    <div class="bar-fill suno-v5" style="width: 97%;"></div>
-                                </div>
-                            </div>
-                            <div style="flex: 1;">
-                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Suno v4: 95</div>
-                                <div class="bar-track">
-                                    <div class="bar-fill suno-v4" style="width: 95%;"></div>
-                                </div>
-                            </div>
-                            <div style="flex: 1;">
-                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">SongBloom: 90</div>
-                                <div class="bar-track">
-                                    <div class="bar-fill songbloom" style="width: 90%;"></div>
-                                </div>
-                            </div>
-                            <div style="flex: 1;">
-                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Udio: 75</div>
-                                <div class="bar-track">
-                                    <div class="bar-fill udio" style="width: 75%;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bar-item">
-                        <div class="bar-header">
-                            <span class="bar-label">🎤 歌词咬字 (发音准确度)</span>
-                        </div>
-                        <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
-                            <div style="flex: 1;">
-                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Suno v5: 95</div>
-                                <div class="bar-track">
-                                    <div class="bar-fill suno-v5" style="width: 95%;"></div>
-                                </div>
-                            </div>
-                            <div style="flex: 1;">
-                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">SongBloom: 92</div>
-                                <div class="bar-track">
-                                    <div class="bar-fill songbloom" style="width: 92%;"></div>
-                                </div>
-                            </div>
-                            <div style="flex: 1;">
-                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Suno v4: 90</div>
-                                <div class="bar-track">
-                                    <div class="bar-fill suno-v4" style="width: 90%;"></div>
-                                </div>
-                            </div>
-                            <div style="flex: 1;">
-                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Udio: 88</div>
-                                <div class="bar-track">
-                                    <div class="bar-fill udio" style="width: 88%;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bar-item">
-                        <div class="bar-header">
-                            <span class="bar-label">⚡ 生成速度 (实时性能)</span>
-                        </div>
-                        <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
-                            <div style="flex: 1;">
-                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Suno v5: 93</div>
-                                <div class="bar-track">
-                                    <div class="bar-fill suno-v5" style="width: 93%;"></div>
-                                </div>
-                            </div>
-                            <div style="flex: 1;">
-                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">SongBloom: 85</div>
-                                <div class="bar-track">
-                                    <div class="bar-fill songbloom" style="width: 85%;"></div>
-                                </div>
-                            </div>
-                            <div style="flex: 1;">
-                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Suno v4: 70</div>
-                                <div class="bar-track">
-                                    <div class="bar-fill suno-v4" style="width: 70%;"></div>
-                                </div>
-                            </div>
-                            <div style="flex: 1;">
-                                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">Udio: 60</div>
-                                <div class="bar-track">
-                                    <div class="bar-fill udio" style="width: 60%;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="legend">
-                <div class="legend-item">
-                    <div class="legend-color" style="background: linear-gradient(90deg, #ff6b6b 0%, #ff8e53 100%);"></div>
-                    <span><strong>Suno v5</strong> (混合架构)</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: linear-gradient(90deg, #00D1FF 0%, #4dd4ff 100%);"></div>
-                    <span>Udio (扩散模型)</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: linear-gradient(90deg, #10b981 0%, #34d399 100%);"></div>
-                    <span>SongBloom (混合架构)</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: linear-gradient(90deg, #FF9900 0%, #ffb347 100%);"></div>
-                    <span>Suno v4 (自回归)</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 技术演进时间线 -->
-        <div class="evolution-timeline">
-            <h3 class="card-title">🚀 神经音频技术演进路线</h3>
-            <div class="timeline-track">
-                <div class="timeline-line"></div>
-                <div class="timeline-points">
-                    <div class="timeline-point">
-                        <div class="timeline-label">MIDI符号<br/>2010s</div>
-                        <div class="timeline-dot" style="background: #cbd5e1;"></div>
-                    </div>
-                    
-                    <div class="timeline-point">
-                        <div class="timeline-label">WaveNet<br/>2016</div>
-                        <div class="timeline-dot" style="background: #60a5fa;"></div>
-                    </div>
-                    
-                    <div class="timeline-point">
-                        <div class="timeline-label">Suno v3<br/>2023</div>
-                        <div class="timeline-dot" style="background: #8b5cf6;"></div>
-                    </div>
-                    
-                    <div class="timeline-point">
-                        <div class="timeline-label">Udio v1<br/>2024</div>
-                        <div class="timeline-dot" style="background: #00D1FF;"></div>
-                    </div>
-                    
-                    <div class="timeline-point highlight">
-                        <div class="timeline-label">Suno v5<br/>2025</div>
-                        <div class="timeline-dot" style="background: #ff6b6b;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 核心洞察 -->
-        <div class="insight-box">
-            <h3>💡 核心技术洞察</h3>
-            <p>
-                <strong>Suno v5</strong> 采用革命性的<strong>混合交织架构</strong>，完美融合自回归模型的结构控制能力和扩散模型的音质优势。
-                这一突破性创新使其在所有核心指标上全面领先，标志着AI音乐生成进入新的发展阶段。
-            </p>
-            <p style="margin-top: 1rem;">
-                相比 <strong>Suno v4</strong> 的纯自回归架构，v5 在保持结构连贯性的同时，音质提升了 <strong>15%</strong>；
-                相比 <strong>Udio</strong> 的纯扩散架构，v5 在保持音质优势的同时，结构连贯性提升了 <strong>29%</strong>。
-            </p>
-        </div>
+    <div class="highlight-banner">
+      <div class="crown">👑</div>
+      <h2>Suno v5：结构规划 × 频域保真度 的统一优化</h2>
+      <p>通过更强的 <span class="mono">Hybrid Pipeline</span>（长程结构规划 + 潜空间细节重建），在韵律对齐、相位连贯性与推理效率上同步提升。</p>
     </div>
 
-    <script>
-        // 页面加载时添加动画效果
-        window.addEventListener('load', function() {
-            const bars = document.querySelectorAll('.bar-fill');
-            bars.forEach((bar, index) => {
-                setTimeout(() => {
-                    bar.style.opacity = '1';
-                }, index * 100);
-            });
+    <!-- 术语速览 -->
+    <div class="card">
+      <div class="card-title">📚 核心技术术语速览</div>
+      <div class="technical-note" style="border-left-color:#6366f1;">
+        点击展开查看解释：<span class="mono">Neural Codec</span> / <span class="mono">Diffusion Transformer</span> / <span class="mono">Latent Tokens</span> / <span class="mono">Prosody</span> / <span class="mono">Phase Coherence</span> / <span class="mono">FAD</span> / <span class="mono">CLAP-like alignment</span>
+      </div>
+      <div class="acc" id="acc">
+        <button class="accbtn" type="button" aria-expanded="false" aria-controls="p1">
+          <div class="accbtn-content">
+            <div class="k">Neural Audio Codec（神经音频编解码器）</div>
+            <div class="m">DAC / EnCodec / SoundStream</div>
+          </div>
+          <span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="accpanel" id="p1" role="region">
+          把波形压缩到离散/连续的 <span class="mono">latent</span> 表征（tokens/embeddings），再解码回波形。
+          它决定音质上限与失真形态：高频伪影、瞬态（transient）涂抹、相位一致性（phase coherence）不足等。
+        </div>
+
+        <button class="accbtn" type="button" aria-expanded="false" aria-controls="p2">
+          <div class="accbtn-content">
+            <div class="k">Diffusion Transformer（扩散 Transformer）</div>
+            <div class="m">DiT / Latent Diffusion / iterative denoising</div>
+          </div>
+          <span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="accpanel" id="p2" role="region">
+          在潜在空间进行迭代去噪（denoising），Transformer 提供全局注意力（global attention）以提升纹理与音色（timbre）细节。
+          音质往往更“干净”，但长程结构（long-range structure）需要更强的条件控制（conditioning）。
+        </div>
+
+        <button class="accbtn" type="button" aria-expanded="false" aria-controls="p3">
+          <div class="accbtn-content">
+            <div class="k">Autoregressive（自回归）与 Long-Context</div>
+            <div class="m">structure planning / verse-chorus consistency</div>
+          </div>
+          <span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="accpanel" id="p3" role="region">
+          逐 token 生成，天然擅长长上下文与段落结构（verse/chorus）。局部波形细节依赖 codec 与采样策略（sampling）；
+          常见挑战是高频清晰度、空间感与声场细节的可控性。
+        </div>
+
+        <button class="accbtn" type="button" aria-expanded="false" aria-controls="p4">
+          <div class="accbtn-content">
+            <div class="k">Prosody（韵律）与 Alignment（对齐）</div>
+            <div class="m">syllable timing / stress / phrasing</div>
+          </div>
+          <span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="accpanel" id="p4" role="region">
+          韵律包含重音、时值、停连与呼吸点；对齐指歌词音节与节拍/音高事件的匹配。
+          常见做法：显式节拍网格（beat grid）、音节边界（phoneme/syllable）约束、或对齐损失（alignment loss）。
+        </div>
+      </div>
+    </div>
+
+    <div class="grid" style="margin-top:1.4rem;">
+      <!-- 综合性能对比 -->
+      <div class="card">
+        <div class="card-title">📊 综合性能排行榜</div>
+        <div class="bar-chart" id="overallBars">
+          <div class="bar-item" data-score="96" data-fill="fill-suno5">
+            <div class="bar-header"><span class="bar-label">🥇 Suno v5</span><span class="bar-value" style="color:var(--suno5)">96</span></div>
+            <div class="bar-track"><div class="bar-fill fill-suno5">综合第一</div></div>
+          </div>
+          <div class="bar-item" data-score="89" data-fill="fill-udio">
+            <div class="bar-header"><span class="bar-label">🥈 Udio v1.5</span><span class="bar-value" style="color:var(--udio)">89</span></div>
+            <div class="bar-track"><div class="bar-fill fill-udio"></div></div>
+          </div>
+          <div class="bar-item" data-score="87" data-fill="fill-song">
+            <div class="bar-header"><span class="bar-label">🥉 SongBloom</span><span class="bar-value" style="color:var(--song)">87</span></div>
+            <div class="bar-track"><div class="bar-fill fill-song"></div></div>
+          </div>
+          <div class="bar-item" data-score="82" data-fill="fill-suno">
+            <div class="bar-header"><span class="bar-label">Suno v4</span><span class="bar-value" style="color:var(--suno)">82</span></div>
+            <div class="bar-track"><div class="bar-fill fill-suno"></div></div>
+          </div>
+        </div>
+        <div class="technical-note">
+          综合评估参考 <span class="term-highlight">MOS / CMOS</span>、<span class="term-highlight">FAD</span>、<span class="term-highlight">Audio-Text 相似度（CLAP-like）</span> 与结构一致性（long-range coherence）等指标加权。
+        </div>
+      </div>
+
+      <!-- 核心指标对比 -->
+      <div class="card">
+        <div class="card-title">🎯 核心声学维度指标</div>
+        <div class="comparison-grid">
+          <div class="metric-card winner"><div class="metric-name">谱密度保真</div><div class="metric-value">98</div><div class="metric-model">Suno v5</div></div>
+          <div class="metric-card winner"><div class="metric-name">相位连贯性</div><div class="metric-value">97</div><div class="metric-model">Suno v5</div></div>
+          <div class="metric-card winner"><div class="metric-name">音素对齐度</div><div class="metric-value">95</div><div class="metric-model">Suno v5</div></div>
+          <div class="metric-card"><div class="metric-name">语义嵌入</div><div class="metric-value">92</div><div class="metric-model">Udio</div></div>
+          <div class="metric-card winner"><div class="metric-name">推理延迟</div><div class="metric-value">93</div><div class="metric-model">Suno v5</div></div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-box highlight"><div class="stat-label">FAD Score</div><div class="stat-value">2.8</div></div>
+          <div class="stat-box"><div class="stat-label">架构范式</div><div class="stat-value" style="font-size:1.6rem">混合</div></div>
+          <div class="stat-box highlight"><div class="stat-label">领先幅度</div><div class="stat-value">+7%</div></div>
+        </div>
+
+        <div class="technical-note">
+          <span class="term-highlight">谱密度保真</span>：梅尔谱距离（Mel L2 / multi-res STFT） ｜
+          <span class="term-highlight">相位连贯性</span>：长程时域一致性（phase coherence & transient stability） ｜
+          <span class="term-highlight">音素对齐度</span>：声学-语言学时序同步（phoneme alignment error）。
+        </div>
+      </div>
+    </div>
+
+    <!-- 详细表格（保留你原始版本的数据口径） -->
+    <div class="card">
+      <div class="card-title">📋 核心能力详细对比表</div>
+      <div class="technical-note">
+        维度口径偏“研究指标”：声学保真度≈音色细节与失真控制；结构连贯性≈长程依赖与段落规划；提示词对齐≈条件控制与语义一致性；速度≈端到端延迟（latency）。
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>维度</th>
+            <th>Suno v4</th>
+            <th>Suno v5</th>
+            <th>Udio</th>
+            <th>SongBloom</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><b>声学保真度</b> (Timbre / Artifacts)</td><td>85</td><td><b>90</b></td><td>95</td><td>92</td></tr>
+          <tr><td><b>结构连贯性</b> (Long-range Structure)</td><td>95</td><td><b>96</b></td><td>75</td><td>90</td></tr>
+          <tr><td><b>歌词咬字</b> (Phoneme Clarity)</td><td>90</td><td><b>92</b></td><td>88</td><td>92</td></tr>
+          <tr><td><b>提示词对齐</b> (Conditioning Fidelity)</td><td>80</td><td>85</td><td><b>92</b></td><td>88</td></tr>
+          <tr><td><b>生成速度</b> (Latency)</td><td>70</td><td>75</td><td>60</td><td><b>85</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 雷达图（纯 SVG + 原生 JS 计算多边形点） -->
+    <div class="card" style="margin-top:1.4rem;">
+      <div class="card-title">⚡ 声学特征维度雷达图（原生 SVG）</div>
+      <div class="technical-note">雷达图基于上表 5 个维度（0–100）。每条曲线是一个模型的“能力指纹”（capability fingerprint）。</div>
+
+      <div class="radar-wrap">
+        <div class="radar-container">
+          <svg id="radar" viewBox="0 0 700 560" width="100%" height="auto" role="img" aria-label="Radar chart">
+            <defs>
+              <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="2" result="b" />
+                <feMerge>
+                  <feMergeNode in="b" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            <!-- Grid rings & axes (static) -->
+            <g id="radarGrid"></g>
+            <g id="radarAxes"></g>
+            <g id="radarPolys"></g>
+            <g id="radarLabels"></g>
+          </svg>
+
+          <div class="legend">
+            <div class="legend-item"><span class="legend-color" style="background:linear-gradient(90deg,var(--suno5),var(--suno5b));"></span> Suno v5</div>
+            <div class="legend-item"><span class="legend-color" style="background:linear-gradient(90deg,var(--suno),#ffb347);"></span> Suno v4</div>
+            <div class="legend-item"><span class="legend-color" style="background:linear-gradient(90deg,var(--udio),#4dd4ff);"></span> Udio</div>
+            <div class="legend-item"><span class="legend-color" style="background:linear-gradient(90deg,var(--song),#34d399);"></span> SongBloom</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 重要度排行（保留你原生版内容） -->
+    <div class="card" style="margin-top:1.4rem;">
+      <div class="card-title">🏆 重要度排行（技术栈视角）</div>
+      <div class="technical-note">从“可工程化落地”的角度排序：结构控制、音质上限、对齐可用性与可编辑性通常决定产品体验。</div>
+      <div style="display:grid;gap:1rem;margin-top:1rem">
+        <div style="display:flex;gap:1rem;align-items:flex-start;border:1px solid #e2e8f0;border-radius:.85rem;padding:1.1rem;background:#f8fafc;">
+          <div style="width:48px;height:48px;border-radius:50%;background:#f1f5f9;color:#64748b;display:flex;align-items:center;justify-content:center;font-weight:950;font-size:1.2rem;flex-shrink:0">1</div>
+          <div>
+            <div style="font-weight:950;color:#1e293b">混合交织架构 (Hybrid) <span style="display:inline-block;margin-left:.5rem;background:#dcfce7;color:#166534;padding:.2rem .7rem;border-radius:999px;font-weight:900;font-size:.8rem">极高</span></div>
+            <div style="color:#64748b;font-size:.88rem;margin-top:.25rem">AR 结构规划 + Latent Diffusion 细节重建</div>
+            <div style="color:#475569;font-size:.95rem;margin-top:.6rem;line-height:1.7">将“长程依赖”与“局部高保真”解耦：AR 负责段落一致性，Diffusion 负责音色/空间细节。落地时常配合层级 tokens（hierarchical tokens）与条件控制（conditioning）。</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:1rem;align-items:flex-start;border:1px solid #e2e8f0;border-radius:.85rem;padding:1.1rem;background:#f8fafc;">
+          <div style="width:48px;height:48px;border-radius:50%;background:#f1f5f9;color:#64748b;display:flex;align-items:center;justify-content:center;font-weight:950;font-size:1.2rem;flex-shrink:0">2</div>
+          <div>
+            <div style="font-weight:950;color:#1e293b">扩散 Transformer (DiT) <span style="display:inline-block;margin-left:.5rem;background:#dbeafe;color:#1e40af;padding:.2rem .7rem;border-radius:999px;font-weight:900;font-size:.8rem">高</span></div>
+            <div style="color:#64748b;font-size:.88rem;margin-top:.25rem">Global attention + iterative denoising</div>
+            <div style="color:#475569;font-size:.95rem;margin-top:.6rem;line-height:1.7">优势在纹理与噪声抑制；挑战在结构控制与可编辑性。工程上常引入节拍/和声条件（beat/chord conditioning）或分层生成以稳住段落一致性。</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:1rem;align-items:flex-start;border:1px solid #e2e8f0;border-radius:.85rem;padding:1.1rem;background:#f8fafc;">
+          <div style="width:48px;height:48px;border-radius:50%;background:#f1f5f9;color:#64748b;display:flex;align-items:center;justify-content:center;font-weight:950;font-size:1.2rem;flex-shrink:0">3</div>
+          <div>
+            <div style="font-weight:950;color:#1e293b">神经音频编解码器 (Neural Codec) <span style="display:inline-block;margin-left:.5rem;background:#f1f5f9;color:#475569;padding:.2rem .7rem;border-radius:999px;font-weight:900;font-size:.8rem">基石</span></div>
+            <div style="color:#64748b;font-size:.88rem;margin-top:.25rem">离散/连续潜在表示（latent tokens）</div>
+            <div style="color:#475569;font-size:.95rem;margin-top:.6rem;line-height:1.7">决定“听起来像不像真录音”的上限。codec 的失真模式会被模型放大，因此需关注瞬态、相位一致性与带宽分配（bandwidth allocation）。</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:1rem;align-items:flex-start;border:1px solid #e2e8f0;border-radius:.85rem;padding:1.1rem;background:#f8fafc;">
+          <div style="width:48px;height:48px;border-radius:50%;background:#f1f5f9;color:#64748b;display:flex;align-items:center;justify-content:center;font-weight:950;font-size:1.2rem;flex-shrink:0">4</div>
+          <div>
+            <div style="font-weight:950;color:#1e293b">音频-文本对齐模型 <span style="display:inline-block;margin-left:.5rem;background:#f1f5f9;color:#475569;padding:.2rem .7rem;border-radius:999px;font-weight:900;font-size:.8rem">关键配套</span></div>
+            <div style="color:#64748b;font-size:.88rem;margin-top:.25rem">Contrastive audio-text embedding（CLAP-like）</div>
+            <div style="color:#475569;font-size:.95rem;margin-top:.6rem;line-height:1.7">决定提示词对齐的上限：语义嵌入越稳，条件控制越可用；也影响检索增强（RAG-like prompts）、风格迁移（style transfer）与可控编辑。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 演进路线（你贴的时间线样式） -->
+    <div class="evolution">
+      <div class="card-title">🧭 架构演进路线</div>
+      <div class="timeline-track">
+        <div class="timeline-line"></div>
+        <div class="timeline-points">
+          <div class="timeline-point"><div class="timeline-dot"></div><div class="timeline-label">MIDI 符号</div></div>
+          <div class="timeline-point"><div class="timeline-dot" style="background:#60a5fa"></div><div class="timeline-label">WaveNet</div></div>
+          <div class="timeline-point"><div class="timeline-dot" style="background:#6366f1"></div><div class="timeline-label">Suno v3（AR）</div></div>
+          <div class="timeline-point"><div class="timeline-dot" style="background:#06b6d4"></div><div class="timeline-label">Udio（DiT）</div></div>
+          <div class="timeline-point highlight"><div class="timeline-dot"></div><div class="timeline-label">Suno v5（Hybrid）</div></div>
+        </div>
+      </div>
+      <div class="technical-note">演进方向：从符号/波形建模走向 <span class="mono">Structure × Fidelity</span> 解耦与联合优化，并强调可编辑性（inpainting / controllable edits）。</div>
+    </div>
+
+    <!-- Tests -->
+    <div class="tests" id="tests">Running tests...</div>
+
+    <footer>
+      说明：页面仅使用原生 JS/CSS + 内联 SVG，不依赖任何 CDN。
+    </footer>
+  </div>
+
+  <script>
+    (function(){
+      try {
+        // 1) Animate overall bars
+        const barItems = Array.from(document.querySelectorAll('#overallBars .bar-item'));
+        requestAnimationFrame(() => {
+          barItems.forEach(item => {
+            const score = Number(item.getAttribute('data-score'));
+            const fill = item.querySelector('.bar-fill');
+            if (!fill || !Number.isFinite(score)) return;
+            fill.style.width = Math.max(0, Math.min(100, score)) + '%';
+          });
         });
-    </script>
+
+        // 2) Accordion
+        const acc = document.getElementById('acc');
+        if (acc) {
+          const btns = Array.from(acc.querySelectorAll('.accbtn'));
+          btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+              const expanded = btn.getAttribute('aria-expanded') === 'true';
+              const panelId = btn.getAttribute('aria-controls');
+              const panel = panelId ? document.getElementById(panelId) : null;
+              btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+              if (panel) panel.classList.toggle('show', !expanded);
+            });
+          });
+        }
+
+        // 3) Radar (pure SVG)
+        const dims = [
+          '声学保真度',
+          '结构连贯性',
+          '歌词咬字',
+          '提示词对齐',
+          '生成速度'
+        ];
+        const data = {
+          suno4:  { name:'Suno v4',   color1:getComputedStyle(document.documentElement).getPropertyValue('--suno').trim() || '#ff9900',  color2:'#ffb347', values:[85,95,90,80,70] },
+          suno5:  { name:'Suno v5',   color1:getComputedStyle(document.documentElement).getPropertyValue('--suno5').trim() || '#ff6b6b', color2:getComputedStyle(document.documentElement).getPropertyValue('--suno5b').trim() || '#ff8e53', values:[90,96,92,85,75] },
+          udio:   { name:'Udio',      color1:getComputedStyle(document.documentElement).getPropertyValue('--udio').trim() || '#00D1FF',  color2:'#4dd4ff', values:[95,75,88,92,60] },
+          song:   { name:'SongBloom', color1:getComputedStyle(document.documentElement).getPropertyValue('--song').trim() || '#10b981',  color2:'#34d399', values:[92,90,92,88,85] },
+        };
+
+        const svg = document.getElementById('radar');
+        const gridG = document.getElementById('radarGrid');
+        const axesG = document.getElementById('radarAxes');
+        const polyG = document.getElementById('radarPolys');
+        const labelG = document.getElementById('radarLabels');
+        if (svg && gridG && axesG && polyG && labelG) {
+          const cx = 350, cy = 265; // center
+          const R = 220;
+          const levels = [0.2,0.4,0.6,0.8,1.0];
+          const n = dims.length;
+          const toRad = (deg)=>deg*Math.PI/180;
+          const angleAt = (i)=> toRad(-90 + i*(360/n));
+          const pt = (r,i)=>({ x: cx + r*Math.cos(angleAt(i)), y: cy + r*Math.sin(angleAt(i)) });
+
+          // Clear
+          gridG.innerHTML=''; axesG.innerHTML=''; polyG.innerHTML=''; labelG.innerHTML='';
+
+          // Grid rings
+          levels.forEach((lv, li) => {
+            const r = R*lv;
+            const pts = Array.from({length:n},(_,i)=>pt(r,i));
+            const d = pts.map((p,i)=> (i===0?`M ${p.x} ${p.y}`:`L ${p.x} ${p.y}`)).join(' ') + ' Z';
+            const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+            path.setAttribute('d', d);
+            path.setAttribute('fill', li===levels.length-1 ? 'none' : 'none');
+            path.setAttribute('stroke', '#e2e8f0');
+            path.setAttribute('stroke-width', '1');
+            gridG.appendChild(path);
+          });
+
+          // Axes + labels
+          dims.forEach((name, i) => {
+            const p = pt(R, i);
+            const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+            line.setAttribute('x1', cx); line.setAttribute('y1', cy);
+            line.setAttribute('x2', p.x); line.setAttribute('y2', p.y);
+            line.setAttribute('stroke', '#cbd5e1');
+            line.setAttribute('stroke-width', '1');
+            axesG.appendChild(line);
+
+            const lp = pt(R+26, i);
+            const text = document.createElementNS('http://www.w3.org/2000/svg','text');
+            text.setAttribute('x', lp.x);
+            text.setAttribute('y', lp.y);
+            text.setAttribute('fill', '#334155');
+            text.setAttribute('font-size', '12');
+            text.setAttribute('font-weight', '700');
+            text.setAttribute('text-anchor', lp.x < cx-10 ? 'end' : (lp.x > cx+10 ? 'start' : 'middle'));
+            text.setAttribute('dominant-baseline', lp.y < cy ? 'ideographic' : 'hanging');
+            text.textContent = name;
+            labelG.appendChild(text);
+          });
+
+          // Helper: polygon for values
+          function polygon(values){
+            const pts = values.map((v,i)=>pt(R*(Math.max(0,Math.min(100,v))/100), i));
+            return pts;
+          }
+
+          // Draw each model polygon
+          const drawOrder = ['song','udio','suno4','suno5'];
+          drawOrder.forEach(key => {
+            const m = data[key];
+            const pts = polygon(m.values);
+            const d = pts.map((p,i)=> (i===0?`M ${p.x} ${p.y}`:`L ${p.x} ${p.y}`)).join(' ') + ' Z';
+            const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+            path.setAttribute('d', d);
+            path.setAttribute('fill', m.color1);
+            path.setAttribute('fill-opacity', key==='suno5' ? '0.22' : '0.14');
+            path.setAttribute('stroke', m.color1);
+            path.setAttribute('stroke-width', key==='suno5' ? '2.5' : '2');
+            path.setAttribute('filter', key==='suno5' ? 'url(#glow)' : 'none');
+            polyG.appendChild(path);
+
+            // Dots
+            pts.forEach((p)=>{
+              const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+              c.setAttribute('cx', p.x); c.setAttribute('cy', p.y);
+              c.setAttribute('r', key==='suno5' ? '3.3' : '2.6');
+              c.setAttribute('fill', '#fff');
+              c.setAttribute('stroke', m.color1);
+              c.setAttribute('stroke-width', key==='suno5' ? '2' : '1.5');
+              polyG.appendChild(c);
+            });
+          });
+
+          // Center label
+          const center = document.createElementNS('http://www.w3.org/2000/svg','text');
+          center.setAttribute('x', cx);
+          center.setAttribute('y', cy+4);
+          center.setAttribute('text-anchor', 'middle');
+          center.setAttribute('fill', '#94a3b8');
+          center.setAttribute('font-size', '12');
+          center.setAttribute('font-weight', '800');
+          center.textContent = '0–100';
+          labelG.appendChild(center);
+        }
+
+        // 4) Tests (keep + add)
+        const tests = [];
+        tests.push({name:'root exists', pass: !!document.getElementById('root')});
+        tests.push({name:'overall bars exist', pass: document.querySelectorAll('#overallBars .bar-item').length >= 4});
+        tests.push({name:'accordion exists', pass: !!document.getElementById('acc')});
+        tests.push({name:'accordion items >= 4', pass: document.querySelectorAll('#acc .accbtn').length >= 4});
+        tests.push({name:'radar svg exists', pass: !!document.getElementById('radar')});
+        tests.push({name:'table rows >= 5', pass: document.querySelectorAll('table tbody tr').length >= 5});
+        tests.push({name:'timeline exists', pass: document.querySelectorAll('.timeline-point').length >= 5});
+
+        const out = document.getElementById('tests');
+        if (out) {
+          out.innerHTML = tests.map(t => `${t.pass ? '<span class="ok">✅</span>' : '<span class="bad">❌</span>'} ${t.name}`).join('\n');
+        }
+      } catch (e) {
+        const out = document.getElementById('tests');
+        if (out) out.textContent = 'Tests failed: ' + (e && (e.message || e.toString()));
+      }
+    })();
+  </script>
 </body>
 </html>
