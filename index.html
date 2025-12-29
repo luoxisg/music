@@ -43,10 +43,21 @@
     }
     .highlight-banner .crown{font-size:2rem;margin-bottom:.4rem}
     .highlight-banner h2{font-size:1.7rem;font-weight:900;margin-bottom:.5rem}
-    .highlight-banner p{font-size:1.05rem;opacity:.95}
+    .highlight-banner p{font-size:1.05rem;opacity:.95;line-height:1.45}
 
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(500px,1fr));gap:1.4rem;margin-bottom:1.4rem;}
     @media (max-width: 900px){.grid{grid-template-columns:1fr;} h1{font-size:1.7rem}}
+    @media (max-width: 600px){
+      body{padding:1rem .6rem}
+      h1{font-size:1.45rem}
+      .subtitle{font-size:.95rem}
+      .highlight-banner{padding:1.2rem;border-radius:.85rem}
+      .highlight-banner h2{font-size:1.3rem}
+      .card{padding:1.1rem;border-radius:.85rem}
+      .card-title{font-size:1.05rem}
+      .bar-track{height:26px}
+      .bar-fill{font-size:.85rem;padding-right:.6rem}
+    }
 
     .card{background:var(--card);padding:1.6rem;border-radius:1rem;box-shadow:0 10px 30px rgba(0,0,0,.2);}
     .card-title{font-size:1.25rem;font-weight:800;color:#1e293b;margin-bottom:1rem;display:flex;align-items:center;gap:.55rem}
@@ -68,6 +79,7 @@
 
     /* Metric cards */
     .comparison-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.8rem;margin-top:.7rem}
+    @media (max-width:600px){.comparison-grid{grid-template-columns:repeat(2,1fr)}}
     @media (max-width: 900px){.comparison-grid{grid-template-columns:repeat(2,1fr)}}
     .metric-card{background:#f8fafc;padding:1rem;border-radius:.75rem;text-align:center;border:2px solid transparent;transition:transform .2s, box-shadow .2s}
     .metric-card:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.08)}
@@ -88,7 +100,7 @@
     /* Technical note */
     .technical-note{font-size:.9rem;color:#334155;font-style:italic;margin-top:.7rem;padding:.9rem;background:#f8fafc;border-left:4px solid #94a3b8;border-radius:.35rem;}
     .term-highlight{color:#6366f1;font-weight:700}
-    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;background:#f1f5f9;padding:.1rem .35rem;border-radius:.25rem}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;background:#f1f5f9;padding:0 .3rem;border-radius:.25rem;line-height:1;vertical-align:baseline;display:inline-block}
 
     /* Glossary accordion */
     .acc{display:grid;gap:.75rem;margin-top:1rem}
@@ -104,6 +116,12 @@
 
     /* Table */
     table{width:100%;border-collapse:collapse;margin-top:1rem}
+    @media (max-width:600px){
+      table thead{display:none}
+      table tbody tr{display:block;margin-bottom:.9rem;border:1px solid #e2e8f0;border-radius:.6rem;padding:.4rem}
+      table tbody td{display:flex;justify-content:space-between;padding:.45rem .6rem;border:none;font-size:.9rem}
+      table tbody td::before{content:attr(data-label);font-weight:700;color:#0f172a}
+    }
     th,td{padding:.85rem;text-align:left;border-bottom:1px solid #e2e8f0}
     th{background:#f8fafc;font-weight:900;color:#1e293b;font-size:.86rem}
     td{font-size:.92rem;color:#475569}
@@ -112,6 +130,10 @@
     /* Radar */
     .radar-wrap{display:grid;grid-template-columns:1fr;gap:1rem;align-items:start}
     .radar-container{width:100%;max-width:720px;margin:0 auto}
+    @media (max-width:600px){
+      .radar-container{max-width:100%}
+      svg#radar{height:360px}
+    }
     .legend{display:flex;gap:1.2rem;margin-top:1rem;flex-wrap:wrap;justify-content:center}
     .legend-item{display:flex;align-items:center;gap:.5rem;font-size:.9rem;color:#020617;font-weight:700}
     .legend-color{width:26px;height:16px;border-radius:6px}
@@ -295,7 +317,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td><b>声学保真度</b> (Timbre / Artifacts)</td><td>85</td><td><b>90</b></td><td>95</td><td>92</td><td>78</td><td>74</td></tr>
+          <!-- mobile labels via data-label -->
+          <tr>
+            <td data-label="维度"><b>声学保真度</b> (Timbre / Artifacts)</td>
+            <td data-label="Suno v4">85</td>
+            <td data-label="Suno v5"><b>90</b></td>
+            <td data-label="Udio">95</td>
+            <td data-label="SongBloom">92</td>
+            <td data-label="腾讯·天琴">78</td>
+            <td data-label="网易·天音">74</td>
+          </tr>
           <tr><td><b>结构连贯性</b> (Long-range Structure)</td><td>95</td><td><b>96</b></td><td>75</td><td>90</td><td>70</td><td>68</td></tr>
           <tr><td><b>歌词咬字</b> (Phoneme Clarity)</td><td>90</td><td><b>92</b></td><td>88</td><td>92</td><td>76</td><td>72</td></tr>
           <tr><td><b>提示词对齐</b> (Conditioning Fidelity)</td><td>80</td><td>85</td><td><b>92</b></td><td>88</td><td>75</td><td>70</td></tr>
